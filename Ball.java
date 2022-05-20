@@ -15,6 +15,8 @@ public class Ball
 	public double size;				// The diameter of this Ball
 	public int layer;					// The layer of this ball is on.
 	public String colour;				// The colour of this Ball
+	public int xSpeed;
+	public int ySpeed; 
 
 										// Permissable colours are:
 										// BLACK, BLUE, CYAN, DARKGREY, GREY,
@@ -23,9 +25,7 @@ public class Ball
 
 	/**
 	 * Constructor. Creates a Ball with the given parameters.
-	 * @param x The x co-ordinate of centre of the Ball (in pixels)
-	 * @param y The y co-ordinate of centre of the Ball (in pixels)
-	 * @param diameter The diameter of the Ball (in pixels)
+	 * @param x The x co-ordinate of centre of the Ball (in pixels)xSpeed1 * xSpeed1 + ySpeed1 * ySpee
 	 * @param col The colour of the Ball (Permissable colours are: BLACK, BLUE, CYAN, DARKGREY, GREY, GREEN, LIGHTGREY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW or ##RRGGBB)
 	 */
 	public Ball(double x, double y, double diameter, String col)
@@ -171,7 +171,7 @@ public class Ball
 		return distance < size/2 + b.size/2;
 	}
 
-	public void deflect(){
+	/*public void deflect(){
  	// The position and speed of each of the two balls in the x and y axis before collision.
  	// YOU NEED TO FILL THESE VALUES IN AS APPROPRIATE...
  	double xPosition1, xPosition2, yPosition1, yPosition2;
@@ -209,7 +209,7 @@ public class Ball
 	/**
 	 * Converts a vector into a unit vector.
 	 * Used by the deflect() method to calculate the resultnt direction after a collision.
-	 */
+	 *//*
 	private double[] normalizeVector(double[] vec)
 	{
 	double mag = 0.0;
@@ -230,7 +230,7 @@ public class Ball
 	result[i] = vec[i] / mag;
 	}
 	return result;
-	}
+	}*/
 	
 }
 

@@ -33,12 +33,13 @@ public class Main {
 
 
         //adding magnets to start positions
-        Magnet magnet1 = new Magnet(500, 180, 20, "WHITE");
-        Magnet magnet2 = new Magnet(500, 300, 20, "WHITE");
-        Magnet magnet3 = new Magnet(500, 420, 20, "WHITE");
-        board.addBall(magnet1);
-        board.addBall(magnet2);
-        board.addBall(magnet3);
+        Magnet[] magnets = new Magnet[3];
+        int yPlacement = 180;
+        for(int i=0; i<3; i++){
+            magnets[i] = new Magnet(500, yPlacement, 20, "WHITE");
+            board.addBall(magnets[i]);
+            yPlacement = yPlacement + 120;
+        }
         
 
         //adding players to start positions
@@ -65,44 +66,54 @@ public class Main {
         }
         board.addBall(puck);
 
+
+
+
         while(true){
             //Player2 Movement
-            if (board.upPressed() == true){
+            if (board.upPressed() == true && player2.getYPosition() > 0){
+                player2.setYSpeed(-10);
                 player2.move(0,-10);
-                
             }
-            if (board.downPressed() == true){
+            
+            if (board.downPressed() == true && player2.getYPosition() < 600){
+                player2.setYSpeed(10);
                 player2.move(0,10);
-                
             }
-            if (board.leftPressed() == true){
+            
+            if (board.leftPressed() == true && player2.getXPosition() > 500){
+                player2.setXSpeed(-10);
                 player2.move(-10,0);
-                
             }
-            if (board.rightPressed() == true){
+            
+            if (board.rightPressed() == true && player2.getXPosition() < 1000){
+                player2.setXSpeed(10);
                 player2.move(10,0);
-                
             }
-
+            
 
             //Player 1 Movement
-            if (board.letterPressed('w') == true){
+            if (board.letterPressed('w') == true && player1.getYPosition() > 0){
+                player1.setYSpeed(-10);
                 player1.move(0,-10);
-                
             }
-            if (board.letterPressed('s') == true){
-                player1.move(0,10);
-                
+            
+            if (board.letterPressed('s') == true && player1.getYPosition() < 600){
+               player1.setYSpeed(10);
+               player1.move(0,10);
             }
-            if (board.letterPressed('a') == true){
-                player1.move(-10,0);
-                
+            
+            if (board.letterPressed('a') == true && player1.getXPosition() > 0){
+                 player1.setXSpeed(-10);
+                 player1.move(-10,0);
             }
-            if (board.letterPressed('d') == true){
+            
+            if (board.letterPressed('d') == true && player1.getXPosition() < 500){
+                 player1.setXSpeed(10);
                 player1.move(10,0);
-                
             }
-
+            
+            
             board.pause();
         }
 
