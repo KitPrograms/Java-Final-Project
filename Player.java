@@ -1,7 +1,7 @@
 public class Player extends Ball{
 
     private int goals;
-    
+
     public Player(double x, double y, double diameter, String col)
 	{
 		super(x, y, diameter, col);
@@ -18,19 +18,19 @@ public class Player extends Ball{
         goals = goals + 1;
     }
 
-    public void setYSpeed(int s){
+    public void setYSpeed(double s){
         this.ySpeed = s;
     }
 
-    public int getYSpeed(){
+    public double getYSpeed(){
         return ySpeed;
     }
 
-    public void setXSpeed(int s){
+    public void setXSpeed(double s){
         this.xSpeed = s;
     }
 
-    public int getXSpeed(){
+    public double getXSpeed(){
         return xSpeed;
     }
     

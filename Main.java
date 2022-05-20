@@ -14,11 +14,11 @@ public class Main {
         Line mid_line = new Line(497.5, 0, 497.5, 600, 10, "LIGHTGREY");
         board.addLine(mid_line);
 
-        //adding cushions to each corner 
-        Cushion corner1 = new Cushion(0,0,100,"LIGHTGREY");
-        Cushion corner2 = new Cushion(0,600,100,"LIGHTGREY");
-        Cushion corner3 = new Cushion(1000,0,100,"LIGHTGREY");
-        Cushion corner4 = new Cushion(1000,600,100,"LIGHTGREY");
+        //adding corners to each corner 
+        Ball corner1 = new Ball(0,0,100,"LIGHTGREY");
+        Ball corner2 = new Ball(0,600,100,"LIGHTGREY");
+        Ball corner3 = new Ball(1000,0,100,"LIGHTGREY");
+        Ball corner4 = new Ball(1000,600,100,"LIGHTGREY");
         board.addBall(corner1);
         board.addBall(corner2);
         board.addBall(corner3);
@@ -65,6 +65,7 @@ public class Main {
             puck = new Ball(940,540,30,"YELLOW");
         }
         board.addBall(puck);
+        double[] deflectSpeeds = new double[4];
 
 
 
@@ -113,7 +114,16 @@ public class Main {
                 player1.move(10,0);
             }
             
-            
+            if (puck.collides(player1)){
+                deflectSpeeds = puck.deflect(puck.getXSpeed(), puck.getYSpeed(), puck.getXPosition(), puck.getYPosition(),player1.getXSpeed(), player1.getYSpeed(), player1.getXPosition(), player1.getYPosition());
+                puck.setSpeed(deflectSpeeds[0], deflectSpeeds[1]);
+            }
+            if (puck.collides(player2)){
+                deflectSpeeds = puck.deflect(puck.getXSpeed(), puck.getYSpeed(), puck.getXPosition(), puck.getYPosition(),player2.getXSpeed(), player2.getYSpeed(), player2.getXPosition(), player2.getYPosition());
+                puck.setSpeed(deflectSpeeds[0], deflectSpeeds[1]);
+            }
+
+            puck.keepmove();
             board.pause();
         }
 
