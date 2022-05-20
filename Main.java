@@ -55,38 +55,45 @@ public class Main {
         }
         board.addBall(puck);
 
-        if (board.upPressed() == true){
-            player2.move(0,10);
-            board.addBall(player2);
-        }
-        if (board.downPressed() == true){
-            player2.move(0,-10);
-            board.addBall(player2);
-        }
-        if (board.leftPressed() == true){
-            player2.move(-10,0);
-            board.addBall(player2);
-        }
-        if (board.rightPressed() == true){
-            player2.move(10,0);
-            board.addBall(player2);
-        }
+        while(true){
+            //Player2 Movement
+            if (board.upPressed() == true){
+                player2.move(0,-10);
+                
+            }
+            if (board.downPressed() == true){
+                player2.move(0,10);
+                
+            }
+            if (board.leftPressed() == true){
+                player2.move(-10,0);
+                
+            }
+            if (board.rightPressed() == true){
+                player2.move(10,0);
+                
+            }
 
-        if (board.letterPressed('w') == true){
-            player1.move(0,10);
-            board.addBall(player1);
-        }
-        if (board.letterPressed('s') == true){
-            player1.move(0,-10);
-            board.addBall(player1);
-        }
-        if (board.letterPressed('a') == true){
-            player1.move(-10,0);
-            board.addBall(player1);
-        }
-        if (board.letterPressed('d') == true){
-            player1.move(10,0);
-            board.addBall(player1);
+
+            //Player 1 Movement
+            if (board.letterPressed('w') == true){
+                player1.move(0,-10);
+                
+            }
+            if (board.letterPressed('s') == true){
+                player1.move(0,10);
+                
+            }
+            if (board.letterPressed('a') == true){
+                player1.move(-10,0);
+                
+            }
+            if (board.letterPressed('d') == true){
+                player1.move(10,0);
+                
+            }
+
+            board.pause();
         }
 
     }
