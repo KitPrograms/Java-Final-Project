@@ -12,6 +12,8 @@ public class Ball
 	
 	public double xPosition;			// The X coordinate of this Ball
 	public double yPosition;			// The Y coordinate of this Ball
+	public double startXPosition;			// The starting X coordinate of this Ball
+	public double startYPosition;			// The starting Y coordinate of this Ball
 	public double size;				// The diameter of this Ball
 	public int layer;					// The layer of this ball is on.
 	public String colour;				// The colour of this Ball
@@ -32,6 +34,8 @@ public class Ball
 	{
 		this.xPosition = x;
 		this.yPosition = y;
+		this.startXPosition = x;
+		this.startYPosition = y;
 		this.size = diameter;
 		this.colour = col;
 		this.layer = 0;
@@ -61,6 +65,20 @@ public class Ball
 	public double getXPosition()
 	{
 		return xPosition;
+	}
+
+	/**
+	 * Obtains the current position of this Ball.
+	 * @return the Y coordinate of this Ball within the GameArena.
+	 */
+	public double getStartYPosition()
+	{
+		return startYPosition;
+	}
+
+	public double getStartXPosition()
+	{
+		return startXPosition;
 	}
 
 	/**
@@ -187,10 +205,10 @@ public class Ball
 	public void keepmove(){
 		this.move(xSpeed, ySpeed);
 
-		if ((this.getYPosition() <= 0 && ySpeed < 0) || (this.getYPosition() >= 600 && ySpeed > 0)){
+		if ((this.getYPosition() <= 15 && ySpeed < 0) || (this.getYPosition() >= 585 && ySpeed > 0)){
 			ySpeed = ySpeed * -1;
 		}
-		if ((this.getXPosition() <= 0 && xSpeed < 0) || (this.getXPosition() >= 1000 && xSpeed > 0)) {
+		if ((this.getXPosition() <=15 && xSpeed < 0) || (this.getXPosition() >= 985 && xSpeed > 0)) {
 			xSpeed = xSpeed * -1;
 		}
 

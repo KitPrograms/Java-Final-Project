@@ -12,10 +12,13 @@ public class Goal extends Ball{
         return goals;
     }
 
-    public void checkGoal(Ball puck, Board board){
+    public boolean checkGoal(Ball puck){
 		if (this.collides(puck)){
 			this.goals += 1;
-			
+			return true;
+		}
+		else{
+			return false;
 		}
     }
 

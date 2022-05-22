@@ -3,6 +3,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[]args){
 
+
         //setting up game layout
         Board board = new Board(1000, 600);
 
@@ -14,15 +15,21 @@ public class Main {
         Line mid_line = new Line(497.5, 0, 497.5, 600, 10, "LIGHTGREY");
         board.addLine(mid_line);
 
-        //adding corners to each corner 
-        Ball corner1 = new Ball(0,0,100,"LIGHTGREY");
-        Ball corner2 = new Ball(0,600,100,"LIGHTGREY");
-        Ball corner3 = new Ball(1000,0,100,"LIGHTGREY");
-        Ball corner4 = new Ball(1000,600,100,"LIGHTGREY");
-        board.addBall(corner1);
-        board.addBall(corner2);
-        board.addBall(corner3);
-        board.addBall(corner4);
+        
+
+        //adding corners to each corners
+
+        Ball[] corners = new Ball[4];
+        int xPlacement = 0;
+        for(int i=0; i<2; i++){
+            int yPlacement = 0;
+            for(int j=0; j<2; j++){
+                corners[i] = new Ball(xPlacement, yPlacement, 100, "WHITE");
+                board.addBall(corners[i]);
+                yPlacement = yPlacement + 600;
+            }
+            xPlacement = xPlacement + 1000;
+        }
 
 
         //adding magnets to start positions
@@ -65,11 +72,13 @@ public class Main {
             puck = new Ball(940,540,30,"YELLOW");
         }
         board.addBall(puck);
+
         
-
-
-
-
+        //adding goals text
+        String score = left_goal.getGoals() + ":" + right_goal.getGoals();
+        Text scoreDisplay = new Text(score, 50, 450, 50, "WHITE",2 );
+        board.addText(scoreDisplay);
+        
         while(true){
             player1.setXSpeed(1);
             player1.setYSpeed(1);
@@ -77,53 +86,55 @@ public class Main {
             player2.setYSpeed(1);
             
             //Player2 Movement
-            if (board.upPressed() == true && player2.getYPosition() > 0){
+            if (board.upPressed() == true && player2.getYPosition() > 25){
                 player2.setYSpeed(-10);
                 player2.move(0,-10);
             }
             
-            if (board.downPressed() == true && player2.getYPosition() < 600){
+            if (board.downPressed() == true && player2.getYPosition() < 575){
                 player2.setYSpeed(10);
                 player2.move(0,10);
             }
             
-            if (board.leftPressed() == true && player2.getXPosition() > 500){
+            if (board.leftPressed() == true && player2.getXPosition() > 525){
                 player2.setXSpeed(-10);
                 player2.move(-10,0);
             }
             
-            if (board.rightPressed() == true && player2.getXPosition() < 1000){
+            if (board.rightPressed() == true && player2.getXPosition() < 975){
                 player2.setXSpeed(10);
                 player2.move(10,0);
             }
             
 
             //Player 1 Movement
-            if (board.letterPressed('w') == true && player1.getYPosition() > 0){
+            if (board.letterPressed('w') == true && player1.getYPosition() > 25){
                 player1.setYSpeed(-10);
                 player1.move(0,-10);
             }
             
-            if (board.letterPressed('s') == true && player1.getYPosition() < 600){
+            if (board.letterPressed('s') == true && player1.getYPosition() < 475){
                 player1.setYSpeed(10);
                 player1.move(0,10);
             }
             
-            if (board.letterPressed('a') == true && player1.getXPosition() > 0){
+            if (board.letterPressed('a') == true && player1.getXPosition() > 25){
                 player1.setXSpeed(-10);
                 player1.move(-10,0);
             }
             
-            if (board.letterPressed('d') == true && player1.getXPosition() < 500){
+            if (board.letterPressed('d') == true && player1.getXPosition() < 475){
                 player1.setXSpeed(10);
                 player1.move(10,0);
             }
             
+            
             player1.checkCollides(puck);
             player2.checkCollides(puck);
            
-            left_goal.checkGoal(puck, board);
-            right_goal.checkGoal(puck, board);
+            if (left_goal.checkGoal(puck) == true || right_goal.checkGoal(puck) == true){
+                board.reset(magnets, player1, player2, puck, scoreDisplay);
+            }
 
             puck.keepmove();
             board.pause();
