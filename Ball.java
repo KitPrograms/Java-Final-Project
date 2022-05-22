@@ -53,6 +53,8 @@ public class Ball
 	{
 		this.xPosition = x;
 		this.yPosition = y;
+		this.startXPosition = x;
+		this.startYPosition = y;
 		this.size = diameter;
 		this.colour = col;
 		this.layer = layer;
