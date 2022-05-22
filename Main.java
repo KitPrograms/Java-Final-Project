@@ -132,8 +132,15 @@ public class Main {
             player1.checkCollides(puck);
             player2.checkCollides(puck);
            
-            if (left_goal.checkGoal(puck) == true || right_goal.checkGoal(puck) == true){
-                board.reset(magnets, player1, player2, puck, scoreDisplay);
+            if (left_goal.checkGoal(puck) == true){
+                score = left_goal.getGoals() + ":" + right_goal.getGoals();
+                scoreDisplay.setText(score);
+                board.reset(magnets, player1, player2, puck, 2);
+            }
+            if (right_goal.checkGoal(puck) == true){
+                score = left_goal.getGoals() + ":" + right_goal.getGoals();
+                scoreDisplay.setText(score);
+                board.reset(magnets, player1, player2, puck, 1);
             }
 
             puck.keepmove();
