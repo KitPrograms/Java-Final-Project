@@ -186,12 +186,19 @@ public class Ball
 
 	public void keepmove(){
 		this.move(xSpeed, ySpeed);
-		if (this.getYPosition() <= 0 || this.getYPosition() >= 600){
+
+		if ((this.getYPosition() <= 0 && ySpeed < 0) || (this.getYPosition() >= 600 && ySpeed > 0)){
 			ySpeed = ySpeed * -1;
 		}
-		if (this.getXPosition() <= 0 || this.getXPosition() >= 1000){
+		if ((this.getXPosition() <= 0 && xSpeed < 0) || (this.getXPosition() >= 1000 && xSpeed > 0)) {
 			xSpeed = xSpeed * -1;
 		}
+
+		if (this.getXSpeed() > 1 || this.getYSpeed() > 1){
+			xSpeed = xSpeed*0.99;
+			ySpeed = ySpeed*0.99;
+		}
+
 	}
 
 	/**

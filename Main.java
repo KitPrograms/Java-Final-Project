@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[]args){
 
         //setting up game layout
-        GameArena board = new GameArena(1000, 600);
+        Board board = new Board(1000, 600);
 
         Rectangle left_side = new Rectangle(0,0,500,600, "BLUE");
         Rectangle right_side = new Rectangle(500,0,500,600, "BLUE");
@@ -65,12 +65,17 @@ public class Main {
             puck = new Ball(940,540,30,"YELLOW");
         }
         board.addBall(puck);
-        double[] deflectSpeeds = new double[4];
+        
 
 
 
 
         while(true){
+            player1.setXSpeed(1);
+            player1.setYSpeed(1);
+            player2.setXSpeed(1);
+            player2.setYSpeed(1);
+            
             //Player2 Movement
             if (board.upPressed() == true && player2.getYPosition() > 0){
                 player2.setYSpeed(-10);
@@ -100,28 +105,25 @@ public class Main {
             }
             
             if (board.letterPressed('s') == true && player1.getYPosition() < 600){
-               player1.setYSpeed(10);
-               player1.move(0,10);
+                player1.setYSpeed(10);
+                player1.move(0,10);
             }
             
             if (board.letterPressed('a') == true && player1.getXPosition() > 0){
-                 player1.setXSpeed(-10);
-                 player1.move(-10,0);
+                player1.setXSpeed(-10);
+                player1.move(-10,0);
             }
             
             if (board.letterPressed('d') == true && player1.getXPosition() < 500){
-                 player1.setXSpeed(10);
+                player1.setXSpeed(10);
                 player1.move(10,0);
             }
             
-            if (puck.collides(player1)){
-                deflectSpeeds = puck.deflect(puck.getXSpeed(), puck.getYSpeed(), puck.getXPosition(), puck.getYPosition(),player1.getXSpeed(), player1.getYSpeed(), player1.getXPosition(), player1.getYPosition());
-                puck.setSpeed(deflectSpeeds[0], deflectSpeeds[1]);
-            }
-            if (puck.collides(player2)){
-                deflectSpeeds = puck.deflect(puck.getXSpeed(), puck.getYSpeed(), puck.getXPosition(), puck.getYPosition(),player2.getXSpeed(), player2.getYSpeed(), player2.getXPosition(), player2.getYPosition());
-                puck.setSpeed(deflectSpeeds[0], deflectSpeeds[1]);
-            }
+            player1.checkCollides(puck);
+            player2.checkCollides(puck);
+           
+            left_goal.checkGoal(puck, board);
+            right_goal.checkGoal(puck, board);
 
             puck.keepmove();
             board.pause();
