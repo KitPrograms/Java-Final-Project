@@ -16,6 +16,10 @@ public class Goal extends Ball{
 		this.goals +=1;
 	}
 
+	public void resetScore(){
+		this.goals = 0;
+	}
+
     public boolean checkGoal(Ball puck){
 		if (this.collides(puck)){
 			puck.setSpeed(0,0);

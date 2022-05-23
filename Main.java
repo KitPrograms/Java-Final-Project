@@ -170,8 +170,36 @@ public class Main {
             for(int i=0; i<3; i++){
                 magnets[i].keepmove();
             }
+
             puck.keepmove();
+
+            if (left_goal.getGoals() == 6){
+                Text winner = new Text("Player 2 wins", 100, 150, 300, "BLACK", 5);
+                if (board.win(winner)){
+                    left_goal.resetScore();
+                    right_goal.resetScore();
+                    board.reset(magnets, player1, player2, puck, 2);
+                }
+                else{
+                    break;
+                }
+            }
+            if (right_goal.getGoals() == 6){
+                Text winner = new Text("Player 1 wins", 100, 150, 300, "BLACK", 5);
+                if (board.win(winner)){
+                    left_goal.resetScore();
+                    right_goal.resetScore();
+                    board.reset(magnets, player1, player2, puck, 1);
+                }
+                else{
+                    break;
+                }
+            }
             board.pause();
+        }
+
+        if (board.escPressed()){
+            board.exit();
         }
 
     }

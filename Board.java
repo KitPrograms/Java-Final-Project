@@ -42,4 +42,21 @@ public class Board extends GameArena {
         }
     }
 
+    public boolean win(Text winner){
+        Rectangle winScreen = new Rectangle(0,0,1000,600,"YELLOW", 4);
+        this.addRectangle(winScreen);
+        this.addText(winner);
+        while(true){
+            if (this.enterPressed()){
+                this.removeRectangle(winScreen);
+                this.removeText(winner);
+                return true;
+            }
+            else{
+                break;
+            }
+        }
+        return false;
+    }
+
 }
