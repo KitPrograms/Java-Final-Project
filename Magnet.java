@@ -33,8 +33,8 @@ public class Magnet extends Ball{
 
 	}
 
-	public void setCollided(){
-		alreadyCollided = true;
+	public void setCollided(Boolean bool){
+		alreadyCollided = bool;
 	}
 
 	public boolean checkCollided(){

@@ -11,6 +11,8 @@ public class Board extends GameArena {
         for (int i = 0; i < 3; i++) {
             magnets[i].setXPosition(magnets[i].getStartXPosition());
             magnets[i].setYPosition(magnets[i].getStartYPosition());
+            magnets[i].setSpeed(0,0);
+            magnets[i].setCollided(false);
         }
 
         player1.setXPosition(player1.getStartXPosition());

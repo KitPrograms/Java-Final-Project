@@ -24,7 +24,7 @@ public class Main {
         for(int i=0; i<2; i++){
             int yPlacement = 0;
             for(int j=0; j<2; j++){
-                corners[i] = new Ball(xPlacement, yPlacement, 100, "WHITE");
+                corners[i] = new Ball(xPlacement, yPlacement, 100, "CYAN");
                 board.addBall(corners[i]);
                 yPlacement = yPlacement + 600;
             }
@@ -75,7 +75,7 @@ public class Main {
 
         
         //adding goals text
-        String score = left_goal.getGoals() + ":" + right_goal.getGoals();
+        String score = right_goal.getGoals() + ":" + left_goal.getGoals();
         Text scoreDisplay = new Text(score, 50, 450, 50, "WHITE",2 );
         board.addText(scoreDisplay);
         
@@ -132,33 +132,38 @@ public class Main {
             player1.checkCollides(puck);
             player2.checkCollides(puck);
            
-            if (left_goal.checkGoal(puck) == true || left_goal.checkGoal(player1) == true ){
-                score = left_goal.getGoals() + ":" + right_goal.getGoals();
+            if (left_goal.checkGoal(puck) == true || left_goal.checkGoal(player1) == true || player1.getMagnetCount() >= 2){
+                puck.setSpeed(0,0);
+                left_goal.addGoal();
+                score = right_goal.getGoals() + ":" + left_goal.getGoals();
                 scoreDisplay.setText(score);
                 board.reset(magnets, player1, player2, puck, 2);
             }
             if (right_goal.checkGoal(puck) == true || right_goal.checkGoal(player2) == true || player2.getMagnetCount() >= 2){
-                score = left_goal.getGoals() + ":" + right_goal.getGoals();
+                puck.setSpeed(0,0);
+                right_goal.addGoal();
+                score = right_goal.getGoals() + ":" + left_goal.getGoals();
                 scoreDisplay.setText(score);
                 board.reset(magnets, player1, player2, puck, 1);
             }
 
             for (int i=0; i<3; i++){
-                if (player1.collides(magnets[i] )== true && magnets[i].checkCollided() == false){
+                if (player1.collides(magnets[i] )== true){
                     player1.checkCollides(magnets[i]);
-                    magnets[i].setCollided();
-                    player1.addMagnet();
-                    magnets[i].setSpeed(player1.getXSpeed(), player1.getYSpeed());
+                    if (magnets[i].checkCollided() == false){
+                        player1.addMagnet();
+                        magnets[i].setCollided(true);
+                    }
                 }
-                if (player2.collides(magnets[i] )== true && magnets[i].checkCollided() == false){
+                if (player2.collides(magnets[i] )== true ){
                     player2.checkCollides(magnets[i]);
-                    magnets[i].setCollided();
-                    player2.addMagnet();
-                    magnets[i].setSpeed(player2.getXSpeed(), player2.getYSpeed());
+                    if (magnets[i].checkCollided() == false){
+                        player2.addMagnet();
+                        magnets[i].setCollided(true);
+                    }
                 }
-                if (magnets[i].checkCollided() == false){
-                    magnets[i].checkCollides(puck);
-                }
+                magnets[i].checkCollides(puck);
+                
                 
             }
 

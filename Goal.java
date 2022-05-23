@@ -12,10 +12,13 @@ public class Goal extends Ball{
         return goals;
     }
 
+	public void addGoal(){
+		this.goals +=1;
+	}
+
     public boolean checkGoal(Ball puck){
 		if (this.collides(puck)){
 			puck.setSpeed(0,0);
-			this.goals += 1;
 			return true;
 		}
 		else{
