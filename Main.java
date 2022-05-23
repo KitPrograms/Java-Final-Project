@@ -144,15 +144,22 @@ public class Main {
             }
 
             for (int i=0; i<3; i++){
-                if (player1.collides(magnets[i] )== true){
+                if (player1.collides(magnets[i] )== true && magnets[i].checkCollided() == false){
                     player1.checkCollides(magnets[i]);
+                    magnets[i].setCollided();
                     player1.addMagnet();
+                    magnets[i].setSpeed(player1.getXSpeed(), player1.getYSpeed());
                 }
-                if (player2.collides(magnets[i] )== true){
+                if (player2.collides(magnets[i] )== true && magnets[i].checkCollided() == false){
                     player2.checkCollides(magnets[i]);
+                    magnets[i].setCollided();
                     player2.addMagnet();
+                    magnets[i].setSpeed(player2.getXSpeed(), player2.getYSpeed());
                 }
-                magnets[i].checkCollides(puck);
+                if (magnets[i].checkCollided() == false){
+                    magnets[i].checkCollides(puck);
+                }
+                
             }
 
             for(int i=0; i<3; i++){

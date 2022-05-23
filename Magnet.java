@@ -1,6 +1,7 @@
 public class Magnet extends Ball{
 
 	private double[] deflectSpeeds = new double[4];
+	private boolean alreadyCollided;
 
     public Magnet(double x, double y, double diameter, String col)
 	{
@@ -30,5 +31,13 @@ public class Magnet extends Ball{
 			ySpeed = ySpeed*0.99;
 		}
 
+	}
+
+	public void setCollided(){
+		alreadyCollided = true;
+	}
+
+	public boolean checkCollided(){
+		return alreadyCollided;
 	}
 }
