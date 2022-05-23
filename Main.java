@@ -1,9 +1,12 @@
 import java.util.Random;
 
+/**
+ * main class where main code is run
+ */
 public class Main {
     public static void main(String[]args){
 
-
+        /******************************************** */
         //setting up game layout
         Board board = new Board(1000, 600);
 
@@ -16,9 +19,6 @@ public class Main {
         board.addLine(mid_line);
 
         
-
-        //adding corners to each corners
-
         Ball[] corners = new Ball[4];
         int xPlacement = 0;
         for(int i=0; i<2; i++){
@@ -30,9 +30,10 @@ public class Main {
             }
             xPlacement = xPlacement + 1000;
         }
+        /********************************************* */
 
 
-        //adding magnets to start positions
+        //adding goals to start positions
         Goal left_goal = new Goal(40,300,60, "CYAN");
         Goal right_goal = new Goal(960, 300, 60, "CYAN");
         board.addBall(left_goal);
@@ -79,7 +80,11 @@ public class Main {
         Text scoreDisplay = new Text(score, 50, 450, 50, "WHITE",2 );
         board.addText(scoreDisplay);
         
+
+        //loop for constant game play
         while(true){
+
+            //keeping player speed 1 when not moving so ball doesnt stop dead when hitting a stationary player
             player1.setXSpeed(1);
             player1.setYSpeed(1);
             player2.setXSpeed(1);
@@ -128,10 +133,12 @@ public class Main {
                 player1.move(10,0);
             }
             
-            
+            //calculating movement if the ball hits the players
             player1.checkCollides(puck);
             player2.checkCollides(puck);
+
            
+            //checking all conditions for a goal being scored on each side
             if (left_goal.checkGoal(puck) == true || left_goal.checkGoal(player1) == true || player1.getMagnetCount() >= 2){
                 puck.setSpeed(0,0);
                 left_goal.addGoal();
@@ -147,6 +154,8 @@ public class Main {
                 board.reset(magnets, player1, player2, puck, 1);
             }
 
+
+            //checking collision for magnets with both players and balls, keeping track of magnets hitting players
             for (int i=0; i<3; i++){
                 if (player1.collides(magnets[i] )== true){
                     player1.checkCollides(magnets[i]);
@@ -167,21 +176,23 @@ public class Main {
                 
             }
 
+
+            //moves all magnets
             for(int i=0; i<3; i++){
                 magnets[i].keepmove();
             }
 
+            //moves the puck
             puck.keepmove();
 
+
+            //checking win conditions, resetting the game board if enter is pressed
             if (left_goal.getGoals() == 6){
                 Text winner = new Text("Player 2 wins", 100, 150, 300, "BLACK", 5);
                 if (board.win(winner)){
                     left_goal.resetScore();
                     right_goal.resetScore();
                     board.reset(magnets, player1, player2, puck, 2);
-                }
-                else{
-                    break;
                 }
             }
             if (right_goal.getGoals() == 6){
@@ -191,16 +202,8 @@ public class Main {
                     right_goal.resetScore();
                     board.reset(magnets, player1, player2, puck, 1);
                 }
-                else{
-                    break;
-                }
             }
             board.pause();
         }
-
-        if (board.escPressed()){
-            board.exit();
-        }
-
     }
 }

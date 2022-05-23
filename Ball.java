@@ -212,6 +212,9 @@ public class Ball
 		yPosition += dy;
 	}
 
+	/**
+	 * keeps the ball moving instead of moving it just once, also implementing friction and slowing it down over time
+	 */
 	public void keepmove(){
 		this.move(xSpeed, ySpeed);
 
@@ -246,6 +249,18 @@ public class Ball
 		return distance < size/2 + b.size/2;
 	}
 
+	/**
+	 * deflection algorithm given that calculates velocity for x and y of two objects after collision
+	 * @param xSpeed1 x speed of first object
+	 * @param ySpeed1 y speed of first object
+	 * @param xPosition1 x position of first object
+	 * @param yPosition1 y position of first object
+	 * @param xSpeed2 x speed of second object
+	 * @param ySpeed2 y speed of second object
+	 * @param xPosition2 x position of second object
+	 * @param yPosition2 y position of second object
+	 * @return
+	 */
 	public double[] deflect(double xSpeed1, double ySpeed1, double xPosition1, double yPosition1, double xSpeed2, double ySpeed2, double xPosition2, double yPosition2){
  	// Calculate initial momentum of the balls... We assume unit mass here.
  	double p1InitialMomentum = Math.sqrt(xSpeed1 * xSpeed1 + ySpeed1 * ySpeed1);
