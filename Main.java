@@ -50,8 +50,8 @@ public class Main {
         
 
         //adding players to start positions
-        Player player1 = new Player(120, 300, 50, "BLACK");
-        Player player2 = new Player(880, 300, 50, "BLACK");
+        Player player1 = new Player(250, 300, 50, "BLACK");
+        Player player2 = new Player(750, 300, 50, "BLACK");
         board.addBall(player1);
         board.addBall(player2);
 
@@ -113,7 +113,7 @@ public class Main {
                 player1.move(0,-10);
             }
             
-            if (board.letterPressed('s') == true && player1.getYPosition() < 475){
+            if (board.letterPressed('s') == true && player1.getYPosition() < 575){
                 player1.setYSpeed(10);
                 player1.move(0,10);
             }
@@ -132,17 +132,32 @@ public class Main {
             player1.checkCollides(puck);
             player2.checkCollides(puck);
            
-            if (left_goal.checkGoal(puck) == true){
+            if (left_goal.checkGoal(puck) == true || left_goal.checkGoal(player1) == true ){
                 score = left_goal.getGoals() + ":" + right_goal.getGoals();
                 scoreDisplay.setText(score);
                 board.reset(magnets, player1, player2, puck, 2);
             }
-            if (right_goal.checkGoal(puck) == true){
+            if (right_goal.checkGoal(puck) == true || right_goal.checkGoal(player2) == true || player2.getMagnetCount() >= 2){
                 score = left_goal.getGoals() + ":" + right_goal.getGoals();
                 scoreDisplay.setText(score);
                 board.reset(magnets, player1, player2, puck, 1);
             }
 
+            for (int i=0; i<3; i++){
+                if (player1.collides(magnets[i] )== true){
+                    player1.checkCollides(magnets[i]);
+                    player1.addMagnet();
+                }
+                if (player2.collides(magnets[i] )== true){
+                    player2.checkCollides(magnets[i]);
+                    player2.addMagnet();
+                }
+                magnets[i].checkCollides(puck);
+            }
+
+            for(int i=0; i<3; i++){
+                magnets[i].keepmove();
+            }
             puck.keepmove();
             board.pause();
         }

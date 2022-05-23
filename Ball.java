@@ -18,7 +18,8 @@ public class Ball
 	public int layer;					// The layer of this ball is on.
 	public String colour;				// The colour of this Ball
 	public double xSpeed;
-	public double ySpeed; 
+	public double ySpeed;
+	private double maxSpeed = 8.5; 
 
 										// Permissable colours are:
 										// BLACK, BLUE, CYAN, DARKGREY, GREY,
@@ -39,6 +40,7 @@ public class Ball
 		this.size = diameter;
 		this.colour = col;
 		this.layer = 0;
+
 	}	
 
 	/**
@@ -134,8 +136,14 @@ public class Ball
 	 */
 	public void setSpeed(double x, double y)
 	{
-		this.xSpeed = x;
-		this.ySpeed = y;
+		if (x > maxSpeed || y > maxSpeed){
+			this.xSpeed = maxSpeed;
+			this.ySpeed = maxSpeed;
+		}
+		else{
+			this.xSpeed = x;
+			this.ySpeed = y;
+		}
 	}
 
 	/**
@@ -208,9 +216,11 @@ public class Ball
 		this.move(xSpeed, ySpeed);
 
 		if ((this.getYPosition() <= 15 && ySpeed < 0) || (this.getYPosition() >= 585 && ySpeed > 0)){
+			yPosition -= 5;
 			ySpeed = ySpeed * -1;
 		}
 		if ((this.getXPosition() <=15 && xSpeed < 0) || (this.getXPosition() >= 985 && xSpeed > 0)) {
+			xPosition -= 5;
 			xSpeed = xSpeed * -1;
 		}
 
